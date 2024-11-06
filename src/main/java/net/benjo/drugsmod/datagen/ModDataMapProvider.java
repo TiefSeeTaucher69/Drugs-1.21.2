@@ -7,7 +7,7 @@ import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ModDataMapProvider extends DataMapProvider {
+public abstract class ModDataMapProvider extends DataMapProvider {
     /**
      * Create a new provider.
      *
@@ -18,7 +18,6 @@ public class ModDataMapProvider extends DataMapProvider {
         super(packOutput, lookupProvider);
     }
 
-    @Override
     protected void gather() {
         this.builder(NeoForgeDataMaps.FURNACE_FUELS);
           //      .add(ModItems.STARLIGHT_ASHES.getId(), new FurnaceFuel(1200), false)

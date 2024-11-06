@@ -29,7 +29,7 @@ public class ModBiomeModifiers {
 
 
     private static ResourceKey<BiomeModifier> registerKey(String name) {
-        return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ResourceLocation.fromNamespaceAndPath(TutorialMod.MOD_ID, name));
+        return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ResourceLocation.fromNamespaceAndPath(DrugsMod.MOD_ID, name));
     }
 
 }

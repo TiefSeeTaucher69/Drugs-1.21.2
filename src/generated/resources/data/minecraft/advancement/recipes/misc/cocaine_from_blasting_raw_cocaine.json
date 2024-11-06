@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_raw_cocaine": {
+      "conditions": {
+        "items": [
+          {
+            "items": "drugsmod:raw_cocaine"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:cocaine_from_blasting_raw_cocaine"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_raw_cocaine"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:cocaine_from_blasting_raw_cocaine"
+    ]
+  }
+}

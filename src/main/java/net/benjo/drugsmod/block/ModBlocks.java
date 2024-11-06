@@ -3,6 +3,9 @@ package net.benjo.drugsmod.block;
 import net.benjo.drugsmod.DrugsMod;
 import net.benjo.drugsmod.DrugsMod;
 import net.benjo.drugsmod.item.ModItems;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -22,10 +25,10 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> COCAINE_BLOCK = registerBlock("cocaine_block",
             () -> new Block(BlockBehaviour.Properties.of()
-                    .strength(4f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST)));
+                    .strength(4f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST).setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("drugsmod", "cocaine_block")))));
     public static final DeferredBlock<Block> COCAINE_ORE = registerBlock("cocaine_ore",
             () -> new DropExperienceBlock(UniformInt.of(2, 4),
-                    BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops().sound(SoundType.STONE)));
+                    BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops().sound(SoundType.STONE).setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("drugsmod", "cocaine_ore")))));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block){
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
@@ -34,7 +37,7 @@ public class ModBlocks {
     }
 
     private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block){
-        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("drugsmod", name)))));
     }
 
     public static void register(IEventBus eventBus){

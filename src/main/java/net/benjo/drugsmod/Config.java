@@ -1,9 +1,12 @@
 package net.benjo.drugsmod;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -57,7 +60,13 @@ public class Config
 
         // convert the list of strings into a set of items
         items = ITEM_STRINGS.get().stream()
-                .map(itemName -> BuiltInRegistries.ITEM.get(ResourceLocation.parse(itemName)))
+                .map(itemName -> ResourceLocation.tryParse(itemName))
+                .filter(Objects::nonNull)
+                .map(location -> BuiltInRegistries.ITEM.get(location)) // Gibt Optional<Holder.Reference<Item>> zurück
+                .filter(Optional::isPresent) // Entferne leere Optionals
+                .map(Optional::get) // Entpacke das Optional
+                .map(Holder.Reference::value) // Entpacke den Holder, um das Item zu erhalten
                 .collect(Collectors.toSet());
+
     }
 }
