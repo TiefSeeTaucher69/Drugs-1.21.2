@@ -28,7 +28,7 @@ public class ModPlacedFeatures {
 
 
     private static ResourceKey<PlacedFeature> registerKey(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(TutorialMod.MOD_ID, name));
+        return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(DrugsMod.MOD_ID, name));
     }
 
     private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,

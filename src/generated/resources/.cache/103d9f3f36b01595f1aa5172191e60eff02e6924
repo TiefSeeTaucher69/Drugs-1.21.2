@@ -1,0 +1,4 @@
+// 1.21.2	2024-11-06T20:22:02.4093768	Registries
+abcc0b42344f4131a2cf88249fb73746907ef092 data/drugsmod/neoforge/biome_modifier/add_cocaine_ore.json
+d76726f83139c3e86efef2974c46779198f3f6d5 data/drugsmod/worldgen/configured_feature/cocaine_ore.json
+f15a0de0abf3c35a242bd49aa8e40001f3f7e4cf data/drugsmod/worldgen/placed_feature/cocaine_ore_placed.json

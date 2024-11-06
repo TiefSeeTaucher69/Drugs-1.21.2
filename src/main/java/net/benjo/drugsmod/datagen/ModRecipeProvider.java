@@ -1,62 +1,75 @@
 package net.benjo.drugsmod.datagen;
 
-import net.benjo.drugsmod.DrugsMod;
 import net.benjo.drugsmod.block.ModBlocks;
 import net.benjo.drugsmod.item.ModItems;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
-    public ModRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, registries);
+public class ModRecipeProvider extends RecipeProvider {
+
+    // The parameters are stored in protected fields
+    public ModRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
+        super(registries, output);
     }
 
     @Override
-    protected void buildRecipes(RecipeOutput recipeOutput) {
+    protected void buildRecipes() {
+        // Register recipes here
         List<ItemLike> COCAINE_SMELTABLES = List.of(ModItems.RAW_COCAINE,
                 ModBlocks.COCAINE_ORE);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.COCAINE_BLOCK.get())
+        // 1. Hole den HolderGetter für Items
+        HolderGetter<Item> itemGetter = registries.lookupOrThrow(Registries.ITEM);
+
+        // 2. Hole den ResourceKey des Items für den COCAINE_BLOCK
+        ResourceKey<Item> cocaineBlockKey = BuiltInRegistries.ITEM.getResourceKey(ModBlocks.COCAINE_BLOCK.get().asItem())
+                .orElseThrow(() -> new IllegalStateException("ResourceKey für COCAINE_BLOCK nicht gefunden."));
+
+        ItemLike cocaineBlockItemLike = ModBlocks.COCAINE_BLOCK.get().asItem();
+
+        ShapedRecipeBuilder.shaped(itemGetter, RecipeCategory.MISC, cocaineBlockItemLike)
                 .pattern("BBB")
                 .pattern("BBB")
                 .pattern("BBB")
                 .define('B', ModItems.COCAINE.get())
                 .unlockedBy("has_cocaine", has(ModItems.COCAINE))
-                .save(recipeOutput, "tutorialmod:cocaine_block_from_cocaine");
+                .save(output, "cocaine_block_from_cocaine");
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.COCAINE.get(), 9)
+        ShapelessRecipeBuilder.shapeless(itemGetter, RecipeCategory.MISC, ModItems.COCAINE, 9)
                 .requires(ModBlocks.COCAINE_BLOCK)
-                .unlockedBy("has_bismuth_block", has(ModBlocks.COCAINE_BLOCK))
-                .save(recipeOutput, "tutorialmod:cocaine_from_cocaine_block");
+                .unlockedBy("has_cocaine_block", has(ModBlocks.COCAINE_BLOCK))
+                .save(output, "cocaine_from_cocaine_block");
 
-        oreSmelting(recipeOutput, COCAINE_SMELTABLES, RecipeCategory.MISC, ModItems.COCAINE.get(), 0.25f, 200, "cocaine");
-        oreBlasting(recipeOutput, COCAINE_SMELTABLES, RecipeCategory.MISC, ModItems.COCAINE.get(), 0.25f, 100, "cocaine");
-
-    }
-    protected static void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
-                                      float pExperience, int pCookingTIme, String pGroup) {
-        oreCooking(recipeOutput, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, pIngredients, pCategory, pResult,
-                pExperience, pCookingTIme, pGroup, "_from_smelting");
+        oreSmelting(COCAINE_SMELTABLES, RecipeCategory.MISC, ModItems.COCAINE.get(), 0.25f, 200, "cocaine");
+        oreBlasting(COCAINE_SMELTABLES, RecipeCategory.MISC, ModItems.COCAINE.get(), 0.25f, 100, "cocaine");
     }
 
-    protected static void oreBlasting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
-                                      float pExperience, int pCookingTime, String pGroup) {
-        oreCooking(recipeOutput, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, pIngredients, pCategory, pResult,
-                pExperience, pCookingTime, pGroup, "_from_blasting");
-    }
+    // The runner class, this should be added to the DataGenerator as a DataProvider
+    public static class Runner extends RecipeProvider.Runner {
 
-    protected static <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput recipeOutput, RecipeSerializer<T> pCookingSerializer, AbstractCookingRecipe.Factory<T> factory,
-                                                                       List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup, String pRecipeName) {
-        for(ItemLike itemlike : pIngredients) {
-            SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), pCategory, pResult, pExperience, pCookingTime, pCookingSerializer, factory).group(pGroup).unlockedBy(getHasName(itemlike), has(itemlike))
-                    .save(recipeOutput, TutorialMod.MOD_ID + ":" + getItemName(pResult) + pRecipeName + "_" + getItemName(itemlike));
+        public Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+            super(output, registries);
+        }
+
+        @Override
+        protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
+            return new ModRecipeProvider(registries, output);
+        }
+
+        @Override
+        public String getName() {
+            return "My Recipes";
         }
     }
 }

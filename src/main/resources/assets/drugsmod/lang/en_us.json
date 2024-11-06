@@ -1,7 +1,7 @@
 {
-  "item.tutorialmod.cocaine": "Cocaine",
-  "item.tutorialmod.raw_cocaine": "Raw Cocaine",
+  "item.drugsmod.cocaine": "Cocaine",
+  "item.drugsmod.raw_cocaine": "Raw Cocaine",
 
-  "block.tutorialmod.cocaine_block": "Block of Cocaine",
-  "block.tutorialmod.cocaine_ore": "Cocaine Ore"
+  "block.drugsmod.cocaine_block": "Block of Cocaine",
+  "block.drugsmod.cocaine_ore": "Cocaine Ore"
 }
