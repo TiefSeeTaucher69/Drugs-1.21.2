@@ -15,8 +15,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        blockWithItem(ModBlocks.COCAINE_BLOCK);
-        blockWithItem(ModBlocks.COCAINE_ORE);
+
     }
 
     private void blockWithItem(DeferredBlock<?> deferredBlock){

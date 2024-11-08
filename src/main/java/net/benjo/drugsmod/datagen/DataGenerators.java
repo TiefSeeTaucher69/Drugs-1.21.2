@@ -1,7 +1,6 @@
 package net.benjo.drugsmod.datagen;
 
 import net.benjo.drugsmod.DrugsMod;
-import net.benjo.drugsmod.DrugsMod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;

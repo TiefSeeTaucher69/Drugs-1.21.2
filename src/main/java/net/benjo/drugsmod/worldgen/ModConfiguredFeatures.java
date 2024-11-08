@@ -17,19 +17,10 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import java.util.List;
 
 public class ModConfiguredFeatures {
-    public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_COCAINE_ORE_KEY = registerKey("cocaine_ore");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> NETHER_COCAINE_ORE_KEY = registerKey("nether_cocaine_ore");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> END_COCAINE_ORE_KEY = registerKey("end_cocaine_ore");
 
     public static void boostrap(BootstrapContext<ConfiguredFeature<?, ?>> context){
         RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
-
-        List<OreConfiguration.TargetBlockState> overworldCocaineOres = List.of(OreConfiguration.target(stoneReplaceable,
-                ModBlocks.COCAINE_ORE.get().defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceables, ModBlocks.COCAINE_ORE.get().defaultBlockState()));
-
-        register(context, OVERWORLD_COCAINE_ORE_KEY, Feature.ORE, new OreConfiguration(overworldCocaineOres, 9));
 
     }
 

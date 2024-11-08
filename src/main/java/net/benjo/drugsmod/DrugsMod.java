@@ -55,12 +55,17 @@ public class DrugsMod
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.INGREDIENTS){
-            event.accept(ModItems.COCAINE);
-            event.accept(ModItems.RAW_COCAINE);
+
         }
         if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS){
-            event.accept(ModBlocks.COCAINE_BLOCK);
-            event.accept(ModBlocks.COCAINE_ORE);
+        }
+        if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES){
+            event.accept(ModItems.BISMUTH_HAMMER);
+            event.accept(ModItems.BISMUTH_AXE);
+            event.accept(ModItems.BISMUTH_PICKAXE);
+            event.accept(ModItems.BISMUTH_HOE);
+            event.accept(ModItems.BISMUTH_SHOVEL);
+            event.accept(ModItems.BISMUTH_SWORD);
         }
     }
 

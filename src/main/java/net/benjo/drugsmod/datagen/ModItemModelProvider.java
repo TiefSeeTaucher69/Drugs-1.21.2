@@ -14,7 +14,14 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        basicItem(ModItems.COCAINE.get());
-        basicItem(ModItems.RAW_COCAINE.get());
+        basicItem(ModItems.BISMUTH.get());
+        basicItem(ModItems.RAW_BISMUTH.get());
+
+        handheldItem(ModItems.BISMUTH_SWORD.getId());
+        handheldItem(ModItems.BISMUTH_PICKAXE.getId());
+        handheldItem(ModItems.BISMUTH_SHOVEL.getId());
+        handheldItem(ModItems.BISMUTH_AXE.getId());
+        handheldItem(ModItems.BISMUTH_HOE.getId());
+        handheldItem(ModItems.BISMUTH_HAMMER.getId());
     }
 }

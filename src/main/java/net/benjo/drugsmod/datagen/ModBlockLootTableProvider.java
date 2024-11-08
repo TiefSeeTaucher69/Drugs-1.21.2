@@ -26,10 +26,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        dropSelf(ModBlocks.COCAINE_BLOCK.get());
 
-        add(ModBlocks.COCAINE_ORE.get(),
-                block -> createOreDrop(ModBlocks.COCAINE_ORE.get(), ModItems.RAW_COCAINE.get()));
 
     }
 

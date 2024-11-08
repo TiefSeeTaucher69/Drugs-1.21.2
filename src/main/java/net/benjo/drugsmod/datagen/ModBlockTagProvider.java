@@ -3,6 +3,7 @@ package net.benjo.drugsmod.datagen;
 import net.benjo.drugsmod.DrugsMod;
 import net.benjo.drugsmod.DrugsMod;
 import net.benjo.drugsmod.block.ModBlocks;
+import net.benjo.drugsmod.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -19,11 +20,15 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(ModBlocks.COCAINE_BLOCK.get())
-                .add(ModBlocks.COCAINE_ORE.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE);
 
-        tag(BlockTags.NEEDS_DIAMOND_TOOL)
-                .add(ModBlocks.COCAINE_ORE.get());
+
+        tag(BlockTags.NEEDS_DIAMOND_TOOL);
+
+
+
+        tag(ModTags.Blocks.INCORRECT_FOR_BISMUTH_TOOL)
+                .addTag(BlockTags.INCORRECT_FOR_IRON_TOOL);
+
     }
 }
